@@ -1,0 +1,25 @@
+members:
+  - role: President
+    name: Pam Peat
+    email: pampeat@cox.net
+  - role: Vice-President
+    name: Don Hanson
+    email: sounderfan2@gmail.com
+  - role: Secretary
+    name: Barbara Reisinger
+    email: sdfa@barbarareisinger.com
+  - role: Treasurer
+    name: Cheryl Maass
+    email: andali2424@gmail.com
+  - role: Board Member
+    name: Dave Peat
+    email: davepeat@cox.net
+  - role: Board Member
+    name: Peggy Urton
+    email: skandia@aol.com
+  - role: Board Member
+    name: Ron Wilson
+    email: nancronw@aol.com
+  - role: AKC Delegate
+    name: Dawn Schroeder
+    email: drdcs@cox.net

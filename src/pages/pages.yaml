@@ -1,0 +1,6 @@
+layout: pages
+tags:
+  - pages
+
+# Automatically write pages as top-level items.
+permalink: "{{ title | slugify }}/index.html"

@@ -1,0 +1,67 @@
+backend:
+  # for local development
+  name: proxy
+  proxy_url: "http://localhost:8081/api/v1"
+  branch: master
+
+  # # for production
+  # name: git-gateway
+  # branch: master
+
+# Please run "npx netlify-cms-proxy-server" for local backend
+local_backend: true
+
+media_folder: src/static/media
+public_folder: /static/media
+
+# publish_mode: editorial_workflow
+
+logo_url: /static/media/logo-300x150.png
+
+collections:
+
+  - label: Pages
+    label_singular: Page
+    name: pages
+    folder: src/pages
+    create: true
+    editor:
+      preview: true
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Nav Title (if not title), name: nav-title, widget: string, required: false }
+      - { label: Nav Order, name: order, widget: number, value_type: int }
+      - { label: Description, name: description, widget: string }
+      - { label: Header Image, name: headerImage, widget: file, required: false }
+      - { label: Body, name: body, widget: markdown }
+    sortable_fields:
+      - order
+      - title
+
+  - label: Settings
+    name: settings
+    editor:
+      preview: false
+    files:
+      - label: Site Settings
+        name: settings
+        file: src/_data/settings.yaml
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Author, name: author, widget: string }
+          - { label: URL, name: url, widget: string }
+          - { label: Logo, name: logo, widget: file }
+
+      - label: Officers and Board
+        name: board
+        file: src/_data/board.yaml
+        fields:
+          - label: Members
+            name: members
+            # widget: string
+            widget: list
+            # collapsed: false
+            fields:
+              - { label: Role, name: role, widget: string }
+              - { label: Name, name: name, widget: string }
+              - { label: Email, name: email, widget: string }

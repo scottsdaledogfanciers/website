@@ -1,0 +1,9 @@
+<table>
+  {% for member in board.members %}
+  <tr>
+    <td>{{ member.role }}</td>
+    <td>{{ member.name }}</td>
+    <td>{{ member.email }}</td>
+  </tr>
+  {% endfor %}
+</table>

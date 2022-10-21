@@ -1,0 +1,128 @@
+<div x-data="{ open: false }">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6">
+    <div
+      class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
+    >
+      <div class="lg:w-0 lg:flex-1">
+        <a href="/" class="flex items-center gap-2">
+          <img class="h-8 w-auto sm:h-14" src="{{ settings.logo }}" alt="" />
+          <span class="font-semibold font-serif text-lg">{{ settings.name }}</span>
+        </a>
+      </div>
+      <div class="-my-2 -mr-2 md:hidden">
+        <button
+          type="button"
+          @click="open = true"
+          class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+          aria-expanded="false"
+        >
+          <span class="sr-only">Open menu</span>
+          <!-- Heroicon name: outline/bars-3 -->
+          <svg
+            class="h-6 w-6"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+            />
+          </svg>
+        </button>
+      </div>
+      <nav class="hidden space-x-10 md:flex">
+        <a
+          href="/"
+          class="text-base font-medium text-gray-500 hover:text-gray-900"
+          >Home</a
+        >
+        {% if collections.pages %} {% for item in collections.pages |
+        sort(false, false, "data.order") %}
+        <a
+          href="{{ item.url }}"
+          class="text-base font-medium text-gray-500 hover:text-gray-900"
+          >{{ item.data['nav-title'] or item.data.title }}</a
+        >
+        {% endfor %}{% endif %}
+      </nav>
+    </div>
+  </div>
+
+  <!--
+    Mobile menu, show/hide based on mobile menu state.
+
+    Entering: "duration-200 ease-out"
+      From: "opacity-0 scale-95"
+      To: "opacity-100 scale-100"
+    Leaving: "duration-100 ease-in"
+      From: "opacity-100 scale-100"
+      To: "opacity-0 scale-95"
+  -->
+  <div
+    x-show="open"
+    class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
+  >
+    <div
+      class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5"
+    >
+      <div class="px-5 pt-5 pb-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <img
+              class="h-8 w-auto"
+              src="{{ settings.logo }}"
+              alt="{{ settings.name }}"
+            />
+          </div>
+          <div class="-mr-2">
+            <button
+              type="button"
+              @click="open = false"
+              class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+            >
+              <span class="sr-only">Close menu</span>
+              <!-- Heroicon name: outline/x-mark -->
+              <svg
+                class="h-6 w-6"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                aria-hidden="true"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="space-y-6 py-6 px-5">
+        <div class="grid grid-cols-2 gap-y-4 gap-x-8">
+          <a
+            href="/"
+            class="text-base font-medium text-gray-900 hover:text-gray-700"
+            >Home</a
+          >
+          {% if collections.pages %} {% for item in collections.pages |
+          sort(false, false, "data.order") %}
+          <a
+            href="{{ item.url }}"
+            class="text-base font-medium text-gray-900 hover:text-gray-700"
+            >{{ item.data['nav-title'] or item.data.title }}</a
+          >
+          {% endfor %}{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
