@@ -1,12 +1,6 @@
+![](./src/static/media/logo-150.png)
 
-<table style="border: none; border-bottom: 1px solid #cccccc">
-  <tr style="border: none">
-    <td style="border: none"><img src="./src/static/media/logo-150.png" width="100"></td>
-    <td style="border: none">
-      <h1 style="border-bottom: none">Scottsdale Dog Fanciers Association Website</h1>
-    </td>
-  </tr>
-</table>
+# Scottsdale Dog Fanciers Association Website
 
 [![netlify status](https://img.shields.io/netlify/a19862c5-af15-48ae-b8ce-19340cbfd844?logo=netlify)](https://app.netlify.com/sites/scottsdaledogfanciersassn-com/deploys)
 
