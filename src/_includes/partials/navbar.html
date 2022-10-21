@@ -1,12 +1,12 @@
 <div x-data="{ open: false }">
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
-    <div
-      class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10"
-    >
+    <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
       <div class="lg:w-0 lg:flex-1">
         <a href="/" class="flex items-center gap-2">
-          <img class="h-8 w-auto sm:h-14" src="{{ settings.logo }}" alt="" />
-          <span class="font-semibold font-serif text-lg">{{ settings.name }}</span>
+          <img class="h-8 w-auto sm:h-14" src="{{ settings.logo }}" alt="">
+          <span class="font-semibold font-serif text-lg">
+            {{- settings.name -}}
+          </span>
         </a>
       </div>
       <div class="-my-2 -mr-2 md:hidden">
@@ -41,14 +41,16 @@
           class="text-base font-medium text-gray-500 hover:text-gray-900"
           >Home</a
         >
-        {% if collections.pages %} {% for item in collections.pages |
-        sort(false, false, "data.order") %}
-        <a
-          href="{{ item.url }}"
-          class="text-base font-medium text-gray-500 hover:text-gray-900"
-          >{{ item.data['nav-title'] or item.data.title }}</a
-        >
-        {% endfor %}{% endif %}
+        {% if collections.pages %}
+          {% for item in collections.pages | sort(false, false, "data.order") %}
+            <a
+              href="{{ item.url }}"
+              class="text-base font-medium text-gray-500 hover:text-gray-900"
+            >
+              {{- item.data['nav-title'] or item.data.title -}}
+            </a>
+          {% endfor %}
+        {% endif %}
       </nav>
     </div>
   </div>
@@ -67,9 +69,7 @@
     x-show="open"
     class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
   >
-    <div
-      class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5"
-    >
+    <div class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
       <div class="px-5 pt-5 pb-6">
         <div class="flex items-center justify-between">
           <div>
@@ -77,7 +77,7 @@
               class="h-8 w-auto"
               src="{{ settings.logo }}"
               alt="{{ settings.name }}"
-            />
+            >
           </div>
           <div class="-mr-2">
             <button
@@ -113,14 +113,19 @@
             class="text-base font-medium text-gray-900 hover:text-gray-700"
             >Home</a
           >
-          {% if collections.pages %} {% for item in collections.pages |
-          sort(false, false, "data.order") %}
-          <a
-            href="{{ item.url }}"
-            class="text-base font-medium text-gray-900 hover:text-gray-700"
-            >{{ item.data['nav-title'] or item.data.title }}</a
-          >
-          {% endfor %}{% endif %}
+          {% if collections.pages %}
+            {%
+              for item in collections.pages |
+              sort(false, false, "data.order")
+            %}
+              <a
+                href="{{ item.url }}"
+                class="text-base font-medium text-gray-900 hover:text-gray-700"
+              >
+                {{- item.data['nav-title'] or item.data.title -}}
+              </a>
+            {% endfor -%}
+          {%- endif %}
         </div>
       </div>
     </div>

@@ -2,7 +2,10 @@ const yaml = require('js-yaml');
 const { DateTime } = require('luxon');
 const htmlmin = require('html-minifier');
 const Image = require('@11ty/eleventy-img');
+const markdownIt = require('markdown-it');
 
+// TODO: move custom functionality into a subdir (not src, though, unless we
+// change src to content?)
 async function imageShortcode(src, alt, sizes, options = {}) {
   let metadata = await Image(src, {
     widths: [null, 1280, 1024, 600],
@@ -116,7 +119,24 @@ async function backgroundImageShortcode(src, quote = "'") {
   return bgImageKinds.map((kind) => `background-image: ${kind};`).join(' ');
 }
 
+// ======================================================================
+// 11ty config!
+// ======================================================================
 module.exports = function (eleventyConfig) {
+  // See
+  // https://www.11ty.dev/docs/languages/markdown/#there-are-extra-and-in-my-output
+  // and https://github.com/11ty/eleventy/issues/2438 regarding disabling
+  // indented code blocks by default.  This *isn't* a code-rendering site, so
+  // there's no value in the indented code support!
+  eleventyConfig.setLibrary(
+    'md',
+    markdownIt({
+      html: true,
+      breaks: false,
+      linkify: true,
+    }).disable('code')
+  );
+
   // Disable automatic use of your .gitignore
   eleventyConfig.setUseGitIgnore(false);
 
@@ -175,7 +195,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy({
     'src/static/favicon/favicon.ico': 'favicon.ico',
   });
-    eleventyConfig.addPassthroughCopy('src/static/favicon');
+  eleventyConfig.addPassthroughCopy('src/static/favicon');
 
   // Copy favicon to route of /_site
   eleventyConfig.addPassthroughCopy('src/favicon.ico');
