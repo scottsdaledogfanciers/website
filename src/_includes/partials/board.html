@@ -1,3 +1,4 @@
+{#
 <table>
   {%- for member in board.members -%}
     <tr>
@@ -7,3 +8,26 @@
     </tr>
   {%- endfor -%}
 </table>
+#}
+
+{# board v2 presentation... #}
+
+<div class="flex flex-col gap-8">
+  {%- for member in board.members -%}
+    <div class="bg-orange-100 rounded-lg shadow-lg p-4 flex flex-row gap-4">
+      <div class="leading-tight text-orange-400 border border-orange-400 rounded-lg p-4 flex-none w-[200px] h-[300px]">[IMAGE TBA]</div>
+      <div class="">
+        <div class="leading-tight font-bold">{{ member.name }}</div>
+        <div class="leading-tight font-regular text-orange-800">
+          {{ member.role }}
+        </div>
+        <div class="mt-4 text-slate-500">
+          [BIOGRAPHY TBA] Eiusmod pariatur est exercitation ad. Et ipsum et
+          commodo aliqua exercitation commodo cillum. Quis tempor nisi veniam
+          pariatur culpa nulla. Ex nostrud enim ipsum aliquip incididunt veniam
+          quis et.
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+</div>
