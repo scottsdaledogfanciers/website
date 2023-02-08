@@ -11,3 +11,92 @@ h1 {
 h3 {
   @apply text-2xl font-bold mb-3;
 }
+
+/* our default form.form-default styling... */
+form.form-default label,
+form.form-default fieldset legend {
+  @apply block text-sm font-bold;
+
+  input,
+  + input,
+  select,
+  + select,
+  textarea,
+  + textarea {
+    @apply font-normal mt-3;
+  }
+}
+
+form.form-default fieldset label {
+  @apply block text-base font-normal m-0 mt-2;
+
+  input {
+    @apply mt-0;
+  }
+
+  input[type='radio'] {
+    @apply mr-2 align-middle;
+  }
+}
+
+form.form-default input[type='text'],
+form.form-default input[type='password'],
+form.form-default input[type='email'],
+form.form-default input[type='number'],
+form.form-default input[type='url'],
+form.form-default input[type='date'],
+form.form-default input[type='datetime-local'],
+form.form-default input[type='month'],
+form.form-default input[type='week'],
+form.form-default input[type='time'],
+form.form-default input[type='search'],
+form.form-default input[type='tel'],
+form.form-default textarea {
+  @apply block w-full rounded-md border-zinc-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm;
+}
+
+form.form-default select,
+form.form-default select[multiple] {
+  @apply block w-auto rounded-md border-zinc-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm;
+}
+
+form.form-default input[type='checkbox'],
+form.form-default input[type='radio'] {
+  @apply h-4 w-4 border-zinc-300 text-cyan-600 focus:ring-cyan-500;
+}
+
+form.form-default input[type='submit'],
+form.form-default button {
+  @apply rounded-md border border-transparent bg-cyan-600 py-2 px-4 text-lg font-medium text-white shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2;
+}
+
+form.search input[type='text'] {
+  @apply block w-full rounded-md border-zinc-300 focus:border-cyan-500 focus:ring-cyan-500 shadow-sm text-xs;
+}
+
+form.search input[type='submit'] {
+  @apply rounded-md border border-transparent bg-cyan-600 py-0 px-1 text-xs font-medium text-white shadow-sm hover:bg-cyan-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2;
+}
+
+.search-results {
+  @apply text-sm flex flex-col gap-4;
+
+  .title {
+    @apply font-bold;
+  }
+
+  .preview {
+    @apply text-xs;
+  }
+}
+
+/* ensure alpine.js `x-cloak` directive works! */
+[x-cloak] {
+  display: none !important;
+}
+
+table.table-default {
+  tbody {
+    vertical-align: top;
+  }
+}

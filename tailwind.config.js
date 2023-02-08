@@ -1,5 +1,5 @@
 module.exports = {
-  content: ["./src/**/*.html"],
+  content: ['./src/**/*.{html,njk,js}'],
   theme: {
     fontFamily: {
       sans: ['Gantari', 'sans-serif'],
@@ -13,5 +13,5 @@ module.exports = {
     // },
   },
   // variants: {},
-  plugins: [require("@tailwindcss/typography")],
+  plugins: [require("@tailwindcss/typography"), require('@tailwindcss/forms')],
 };

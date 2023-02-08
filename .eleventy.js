@@ -1,69 +1,65 @@
-const yaml = require('js-yaml');
-const { DateTime } = require('luxon');
 const htmlmin = require('html-minifier');
-// const Image = require('@11ty/eleventy-img');
-const markdownIt = require('markdown-it');
+const yaml = require('js-yaml');
 
-const {
-  imageShortcode,
-  backgroundImageShortcode,
-} = require('./tooling/images');
+const eleventyNavigationPlugin = require('@11ty/eleventy-navigation');
+const UserConfig = require('@11ty/eleventy/src/UserConfig');
+
+const addins = require('./src/_helpers/addins');
+
+// Some of the addins want the config'd directories, but that's not availble
+// until the *return* of the called config function.  But, since it's a constant
+// value, we pre-define it and pass it into our `withConfig` helper.
+
+const configOptions = {
+  dir: {
+    input: 'src',
+    output: '_site',
+    // relative to input...
+    data: '_data',
+    includes: '_includes',
+    layouts: '_layouts',
+  },
+  markdownTemplateEngine: 'njk',
+  htmlTemplateEngine: 'njk',
+};
 
 // ======================================================================
 // 11ty config!
 // ======================================================================
+/** @param {UserConfig} eleventyConfig */
 module.exports = function (eleventyConfig) {
-  // See
-  // https://www.11ty.dev/docs/languages/markdown/#there-are-extra-and-in-my-output
-  // and https://github.com/11ty/eleventy/issues/2438 regarding disabling
-  // indented code blocks by default.  This *isn't* a code-rendering site, so
-  // there's no value in the indented code support!
-  eleventyConfig.setLibrary(
-    'md',
-    markdownIt({
-      html: true,
-      breaks: false,
-      linkify: true,
-    }).disable('code')
-  );
-
-  // Disable automatic use of your .gitignore
-  eleventyConfig.setUseGitIgnore(false);
+  eleventyConfig.addPlugin(eleventyNavigationPlugin);
 
   // Merge data instead of overriding
   eleventyConfig.setDataDeepMerge(true);
 
-  // human readable date
-  eleventyConfig.addFilter('readableDate', (dateObj) => {
-    return DateTime.fromJSDate(dateObj, { zone: 'utc' }).toFormat(
-      'dd LLL yyyy'
-    );
-  });
-
-  eleventyConfig.addShortcode('year', () =>
-    new Date().getFullYear().toString()
-  );
-
   // Allow YAML everywhere that JSON is supported.
   eleventyConfig.addDataExtension('yaml', (contents) => yaml.load(contents));
 
-  // Set up image processing...
-  eleventyConfig.addNunjucksAsyncShortcode('image', imageShortcode);
-  eleventyConfig.addLiquidShortcode('image', imageShortcode);
-  eleventyConfig.addJavaScriptFunction('image', imageShortcode);
+  // Add all filters/shortcodes from our helper addins...
+  Object.entries(addins.filters?.async).forEach(([k, v]) => {
+    // console.log(`adding async filter ${k}...`);
+    eleventyConfig.addAsyncFilter(k, v);
+  });
 
-  eleventyConfig.addNunjucksAsyncShortcode(
-    'backgroundImage',
-    backgroundImageShortcode
-  );
-  eleventyConfig.addLiquidShortcode(
-    'backgroundImage',
-    backgroundImageShortcode
-  );
-  eleventyConfig.addJavaScriptFunction(
-    'backgroundImage',
-    backgroundImageShortcode
-  );
+  Object.entries(addins.filters?.sync).forEach(([k, v]) => {
+    // console.log(`adding sync filter ${k}...`);
+    eleventyConfig.addFilter(k, v);
+  });
+
+  Object.entries(addins.shortcodes?.async).forEach(([k, v]) => {
+    // console.log(`adding async shortcode ${k}...`);
+    eleventyConfig.addAsyncShortcode(k, v);
+  });
+
+  Object.entries(addins.shortcodes?.sync).forEach(([k, v]) => {
+    // console.log(`adding sync shortcode ${k}...`);
+    eleventyConfig.addShortcode(k, v);
+  });
+
+  if (addins.withConfig) {
+    addins.withConfig(eleventyConfig, configOptions);
+  }
 
   // Netlify CMS gets transformed for local vs. production...
   const cmsConfig = `./src/admin/config${
@@ -73,22 +69,23 @@ module.exports = function (eleventyConfig) {
     [cmsConfig]: './admin/config.yml',
   });
 
+  // copy media folder to /_site
+  eleventyConfig.addPassthroughCopy('src/static/media');
+
+  // copy js folder to /_site
+  eleventyConfig.addPassthroughCopy('src/static/js');
+
   // copy dependency files to /_site
   eleventyConfig.addPassthroughCopy({
     'node_modules/alpinejs/dist/cdn.min.js': 'static/js/alpine.js',
+    'node_modules/lunr/lunr.min.js': 'static/js/lunr.min.js',
   });
-
-  // copy media folder to /_site
-  eleventyConfig.addPassthroughCopy('src/static/media');
 
   // copy favicon folder to /_site (and special copy for '/favicon.ico')
   eleventyConfig.addPassthroughCopy({
     'src/static/favicon/favicon.ico': 'favicon.ico',
   });
   eleventyConfig.addPassthroughCopy('src/static/favicon');
-
-  // Copy favicon to route of /_site
-  eleventyConfig.addPassthroughCopy('src/favicon.ico');
 
   // Minify HTML
   eleventyConfig.addTransform('htmlmin', function (content, outputPath) {
@@ -105,14 +102,5 @@ module.exports = function (eleventyConfig) {
     return content;
   });
 
-  // Let Eleventy transform HTML files as nunjucks
-  // So that we can use .html instead of .njk
-  return {
-    dir: {
-      input: 'src',
-    },
-    // dataTemplateEngine: 'njk',
-    htmlTemplateEngine: 'njk',
-    markdownTemplateEngine: 'njk',
-  };
+  return configOptions;
 };

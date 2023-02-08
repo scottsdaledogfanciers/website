@@ -8,7 +8,7 @@ headerImage: /static/media/sebastian-coman-travel-5tezjry1wbi-unsplash.jpg
 
 ## Scottsdale Dog Fanciers Association, Inc. <br/><small>_An AKC Member Club_</small>
 
-{% image './src/static/media/2016-outdoor-ring.jpg' %}
+{% image "src/static/media/2016-outdoor-ring.jpg" %}
 
 Scottsdale Dog Fanciers Association, Inc. is a non-profit organization established on June 7th, 1968 with the following objectives:
 
@@ -19,7 +19,7 @@ Scottsdale Dog Fanciers Association, Inc. is a non-profit organization establish
 
 ## Meetings
 
-{% image './src/static/media/mcdowell-center-intro-pg1_orig.jpg' %}
+{% image "src/static/media/mcdowell-center-intro-pg1_orig.jpg" %}
 
 Meetings are held at 7:00 PM on the 3rd Tuesday of every month, except for the months of July, August, and December. We normally hold our meetings at the McDowell Mountain Ranch Community Center, 16116 N McDowell Mountain Ranch Rd., Scottsdale, 85255. Hope to see you there!
 

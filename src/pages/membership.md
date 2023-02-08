@@ -1,7 +1,7 @@
 ---
 title: Membership
 order: 20
-description: More about the club and who we are.
+description: Interested in becoming a member?
 headerImage: /static/media/sebastian-coman-travel-5tezjry1wbi-unsplash.jpg
 ---
 
