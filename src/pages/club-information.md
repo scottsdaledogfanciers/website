@@ -27,5 +27,5 @@ Meetings are held at 7:00 PM on the 3rd Tuesday of every month, except for the m
 
 ## SDFA Officers and Board of Directors
 
-{% include "partials/board.html" %}
+{% include "board.html" %}
 
