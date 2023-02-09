@@ -1,6 +1,11 @@
-<div x-data="{ open: false }">
+{% from "utilities.njk" import heroicon %}
+
+<div
+  x-data="{ open: false }"
+  class="relative z-10 lg:fixed w-full bg-white shadow-lg"
+>
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
-    <div class="flex items-center justify-between border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
+    <div class="flex items-center justify-between justify-items-stretch border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
       <div class="lg:w-0 lg:flex-1">
         <a href="/" class="flex items-center gap-2">
           <img class="h-8 w-auto sm:h-14" src="{{ settings.logo }}" alt="">
@@ -9,7 +14,7 @@
           </span>
         </a>
       </div>
-      <div class="-my-2 -mr-2 md:hidden">
+      <div class="-my-2 -mr-2 lg:hidden">
         <button
           type="button"
           @click="open = true"
@@ -17,25 +22,13 @@
           aria-expanded="false"
         >
           <span class="sr-only">Open menu</span>
-          <!-- Heroicon name: outline/bars-3 -->
-          <svg
-            class="h-6 w-6"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            aria-hidden="true"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
+          {{ heroicon("outline", "bars-3", "h-6 w-6") }}
         </button>
       </div>
-      <nav class="hidden space-x-10 md:flex">
+      <nav
+        x-data="{ search: false, query: '' }"
+        class="hidden space-x-10 md:flex"
+      >
         <a
           href="/"
           class="text-base font-medium text-gray-500 hover:text-gray-900"
@@ -88,22 +81,7 @@
               class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
             >
               <span class="sr-only">Close menu</span>
-              <!-- Heroicon name: outline/x-mark -->
-              <svg
-                class="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
+              {{ heroicon("outline", "x-mark", "h-6 w-6") }}
             </button>
           </div>
         </div>
@@ -135,3 +113,7 @@
     </div>
   </div>
 </div>
+
+{# spacer for fixed header... #}
+<div class="hidden lg:block pb-20"></div>
+<div class="hidden lg:block pb-2"></div>

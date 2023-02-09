@@ -2,3 +2,8 @@ node_modules
 README.md
 **/README.md
 _helpers/
+
+# disabled pages..
+/src/pages/breeders.md
+/src/pages/special-events.md
+/src/pages/sdfa-bylaws-procedures.md

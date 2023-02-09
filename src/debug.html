@@ -1,0 +1,92 @@
+---
+title: Debug
+layout: base
+eleventyExcludeFromCollections: true
+robots: noindex,nofollow
+---
+<style type="text/css">
+  body {
+    padding: 2rem;
+  }
+
+  /* debug-only styles... */
+  .nest {
+    margin-left: 2rem;
+  }
+
+  pre {
+    margin-left: 2rem;
+    font-family: Consolas, Courier, mono;
+    border: 1px solid #d0d0d0;
+    background-color: #f8f8f8;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+
+  h2 {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  h3 {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+</style>
+
+<h1>Debugging info...</h1>
+
+<h2>Top-level values</h2>
+<pre>{{ collections.all[0].data | pick(['eleventy', 'pkg', 'settings', 'board']) | inspect }}</pre>
+<h3>eleventyConfig...</h3>
+<pre>{{ debugConfig | inspect }}</pre>
+
+<h2>Navigation</h2>
+{# <pre>{{ collections.all | eleventyNavigation | rejectattr("hidden") | inspect }}</pre> #}
+<pre>{{ collections.all | eleventyNavigation | inspect }}</pre>
+
+<h2>Collections</h2>
+
+<div class="nest">
+  {% for k in collections | keys %}
+    {# pluralize the key name (except for "all"?) #}
+    <h3>{{ k }}</h3>
+    <div class="nest">
+      <ul>
+        {% for item in collections[k] %}
+          <li>
+            <b>{{ item.data.title or (item.fileSlug | title) or 'ROOT' }}</b>
+            (<a href="{{ item.url }}">{{ item.url }}</a>)
+            <pre>{{ item | collectionDebugInfo | inspect }}</pre>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>
+
+<h2>Background video</h2>
+
+<div class="mx-4 h-96 relative bg-amber-100 rounded-lg">
+  <video
+    autoplay
+    muted
+    loop
+    class="absolute rounded-lg w-full h-full object-cover overflow-clip"
+  >
+    <source src="/static/media/cover.mp4" type="video/mp4">
+  </video>
+  <div
+    class="absolute rounded-lg w-full h-full"
+    style="background-image: linear-gradient(to right, #06b6d480, #14b8a680);"
+  ></div>
+
+  <div class="p-8 text-5xl mx-auto font-serif font-bold relative z-10 text-white">
+    [TEXT, ETC.]
+  </div>
+</div>

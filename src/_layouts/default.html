@@ -1,73 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google tag (gtag.js) -->
+{% extends "./base.html" %}
+
+{% block body %}
+<body>
+  <div class="relative bg-white">
+    {% include 'navbar.html' -%}
+
+    {{ content | safe }}
+
+    {%- include 'footer.html' %}
+  </div>
+
+  <script defer src="/static/js/lunr.min.js"></script>
+  <script defer src="/static/js/search_index.js"></script>
+  <script defer src="/static/js/search.js"></script>
+  <script defer src="/static/js/alpine.js"></script>
+
+  {% if path == 'home' %}
+    <!-- Netlify Identity Widget -->
+    <!-- Needed only if you are using Netlify Identity feature -->
     <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-95Y592QSEH"
+      type="text/javascript"
+      src="https://identity.netlify.com/v1/netlify-identity-widget.js"
     ></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-      gtag('config', 'G-95Y592QSEH');
-    </script>
-
-    <title>{{ title }}</title>
-    {% if description %}
-      <meta name="description" content="{{description}}">
-    {% endif %}
-    {% block head %}
-    {% endblock %}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Gantari:ital,wght@0,200..800;1,200..800&family=Playfair+Display:ital,wght@0,400..800;1,400..800&display=swap"
-      rel="stylesheet"
-    >
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="/static/favicon/apple-touch-icon.png"
-    >
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="/static/favicon/favicon-32x32.png"
-    >
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="/static/favicon/favicon-16x16.png"
-    >
-    <link rel="manifest" href="/static/favicon/site.webmanifest">
-  </head>
-  <body>
-    <div class="relative bg-white">
-      {% include 'navbar.html' -%}
-
-      {{ content | safe }}
-
-      {%- include 'footer.html' %}
-    </div>
-
-    <script src="/static/js/alpine.js"></script>
-
-    {% if path == 'home' %}
-      <!-- Netlify Identity Widget -->
-      <!-- Needed only if you are using Netlify Identity feature -->
-      <script
-        type="text/javascript"
-        src="https://identity.netlify.com/v1/netlify-identity-widget.js"
-      ></script>
-    {% endif %}
-  </body>
-</html>
+  {% endif %}
+</body>
+{% endblock %}

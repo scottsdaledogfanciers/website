@@ -104,9 +104,7 @@ function collectionDebugInfo(obj) {
     'pkg',
     'collections',
     'settings',
-    'titleEvents',
-    'titleLevels',
-    'titleMap',
+    'board',
   ]);
   return o;
 }
