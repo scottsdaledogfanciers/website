@@ -8,7 +8,6 @@
   "license": "ISC",
   "scripts": {
     "clean": "rimraf _site",
-
     "build": "npm-run-all --print-label css eleventy:prod search:build",
     "build:dev": "npm-run-all --print-label css eleventy search:build",
     "start": "npm-run-all --print-label --parallel css eleventy",
@@ -24,7 +23,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^2.0.0-beta.3",
+    "@11ty/eleventy": "^2.0.0",
     "@11ty/eleventy-img": "^3.0.0",
     "@11ty/eleventy-navigation": "^0.3.5",
     "@shopify/prettier-plugin-liquid": "^1.0.6",

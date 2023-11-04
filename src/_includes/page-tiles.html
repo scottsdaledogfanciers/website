@@ -1,20 +1,17 @@
 <div class="container lg:max-w-6xl p-4 grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-  {% if collections.pages %}
-    {%
-      for item in collections.pages | sort(false,
-      false, "data.order")
-    %}
-      {% if not item.data.hidden %}
-        <a
-          class="p-5 border rounded-md shadow-md text-gray-800 hover:text-gray-900 bg-orange-100 hover:bg-orange-200"
-          href="{{ item.url }}"
-        >
-          <h2 class="mt-0 pb-1 font-bold font-serif text-xl">
-            {{ item.data.title }}
-          </h2>
-          <p class="text-gray-900">{{ item.data.description }}</p>
-        </a>
-      {% endif %}
-    {% endfor %}
-  {% endif %}
+  {% for nav in collections.pages | eleventyNavigation %}
+    {# we could exclude the "current" page, rather than knowing this is on home #}
+    {% if nav.url !== '/' %}
+      {% set item = nav | itemFromNav %}
+      <a
+        class="p-5 border rounded-md shadow-md text-gray-800 hover:text-gray-900 bg-orange-100 hover:bg-orange-200"
+        href="{{ nav.url }}"
+      >
+        <h2 class="mt-0 pb-1 font-bold font-serif text-xl">
+          {{ nav.title }}
+        </h2>
+        <p class="text-gray-900">{{ item.data.description }}</p>
+      </a>
+    {% endif %}
+  {% endfor %}
 </div>

@@ -80,6 +80,7 @@ function collectionDebugInfo(obj) {
     'checkTemplateContent',
     'template',
     'templateContent',
+    'content',
     'data',
   ]);
 
@@ -167,12 +168,24 @@ function typeOf(obj) {
 
 /**
  * @param {UserConfig} eleventyConfig
+ * @param {Object} nav
+ */
+function itemFromNav(nav) {
+  const item = this.ctx.collections.all.find((item) => item.url === nav.url);
+  // console.log('ITEMFROMNAV', { nav, item });
+  return item;
+}
+
+/**
+ * @param {UserConfig} eleventyConfig
  * @param {Object} configOptions
  */
 function withConfig(eleventyConfig, configOptions) {
   eleventyConfig.addGlobalData('debugConfig', () =>
     pick(eleventyConfig, ['collections', 'dir', 'pathPrefix'])
   );
+
+  // eleventyConfig.addFilter('itemFromNav', itemFromNav.bind(null, eleventyConfig));
 }
 
 module.exports = {
@@ -189,6 +202,7 @@ module.exports = {
       trimstart,
       trimend,
       typeOf,
+      itemFromNav,
     },
   },
   shortcodes: {

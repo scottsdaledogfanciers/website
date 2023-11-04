@@ -47,8 +47,15 @@ robots: noindex,nofollow
 <pre>{{ debugConfig | inspect }}</pre>
 
 <h2>Navigation</h2>
-{# <pre>{{ collections.all | eleventyNavigation | rejectattr("hidden") | inspect }}</pre> #}
 <pre>{{ collections.all | eleventyNavigation | inspect }}</pre>
+{# <div class="nest">
+  {% for nav in collections.all | eleventyNavigation %}
+    <pre>{{nav | inspect }}
+
+{{ nav | itemFromNav | collectionDebugInfo | inspect }}
+    </pre>
+  {% endfor %}
+</div> #}
 
 <h2>Collections</h2>
 
@@ -56,6 +63,7 @@ robots: noindex,nofollow
   {% for k in collections | keys %}
     {# pluralize the key name (except for "all"?) #}
     <h3>{{ k }}</h3>
+    <pre>{{ collections[k] | keys | inspect }}</pre>
     <div class="nest">
       <ul>
         {% for item in collections[k] %}

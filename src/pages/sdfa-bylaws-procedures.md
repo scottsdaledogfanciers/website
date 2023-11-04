@@ -1,7 +1,7 @@
 ---
 # NOTE: disabled in .eleventyignore!
 title: SDFA Bylaws & Policies
-nav-title: SDFA Bylaws
+navTitle: Bylaws
 order: 30
 description: All of the nitty-gritty a prospective member might want to know.
 headerImage: /static/media/writing.jpg

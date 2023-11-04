@@ -5,8 +5,9 @@
   class="relative z-10 lg:fixed w-full bg-white shadow-lg"
 >
   <div class="mx-auto max-w-7xl px-4 sm:px-6">
-    <div class="flex items-center justify-between justify-items-stretch border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-      <div class="lg:w-0 lg:flex-1">
+    <div class="flex items-center justify-between justify-items-stretch border-b-2 border-gray-100 py-6 lg:justify-start lg:space-x-10">
+      {# brand/name #}
+      <div class="">
         <a href="/" class="flex items-center gap-2">
           <img class="h-8 w-auto sm:h-14" src="{{ settings.logo }}" alt="">
           <span class="font-semibold font-serif text-lg">
@@ -14,6 +15,8 @@
           </span>
         </a>
       </div>
+
+      {# mobile menu button #}
       <div class="-my-2 -mr-2 lg:hidden">
         <button
           type="button"
@@ -25,44 +28,58 @@
           {{ heroicon("outline", "bars-3", "h-6 w-6") }}
         </button>
       </div>
+
+      {# menu (and search) #}
       <nav
         x-data="{ search: false, query: '' }"
-        class="hidden space-x-10 md:flex"
+        class="flex-1 hidden space-x-10 lg:flex justify-end items-center"
       >
-        <a
-          href="/"
-          class="text-base font-medium text-gray-500 hover:text-gray-900"
-          >Home</a
+        {% for nav in (collections.pages | eleventyNavigation) %}
+          <a
+            x-show="!search"
+            href="{{ nav.url }}"
+            class="text-base font-medium text-gray-500 hover:text-gray-900"
+          >
+            {{- nav.title -}}
+          </a>
+        {% endfor %}
+
+        {# search! #}
+        <form
+          x-show="search"
+          class="search w-full font-sans font-normal relative"
         >
-        {% if collections.pages %}
-          {% for item in collections.pages | sort(false, false, "data.order") %}
-            {% if not item.data.hidden %}
-              <a
-                href="{{ item.url }}"
-                class="text-base font-medium text-gray-500 hover:text-gray-900"
-              >
-                {{- item.data['nav-title'] or item.data.title -}}
-              </a>
-            {% endif %}
-          {% endfor %}
-        {% endif %}
+          <div class="w-full flex gap-2">
+            <input
+              type="text"
+              name="q"
+              xxxx-model-debounce="query"
+              x-model="query"
+              x-effect="if (search) { $nextTick(() => { $el.focus(); }); }"
+            >
+            {# <input type="submit" value="Search"> #}
+          </div>
+          <div
+            x-show="query"
+            class="absolute top-9 bg-white rounded p-2 border w-full search-results"
+            x-html="window.search(query)"
+          ></div>
+        </form>
+        <button type="button" @click="search = !search" class="" title="Search">
+          {{ heroicon("outline", "magnifying-glass", "w-5 h-5 text-zinc-500 hover:text-zinc-900") }}
+        </button>
       </nav>
     </div>
   </div>
 
-  <!--
-    Mobile menu, show/hide based on mobile menu state.
+  {# Mobile menu, show/hide based on mobile menu state.
 
-    Entering: "duration-200 ease-out"
-      From: "opacity-0 scale-95"
-      To: "opacity-100 scale-100"
-    Leaving: "duration-100 ease-in"
-      From: "opacity-100 scale-100"
-      To: "opacity-0 scale-95"
-  -->
+  Entering: "duration-200 ease-out" From: "opacity-0 scale-95" To: "opacity-100
+  scale-100" Leaving: "duration-100 ease-in" From: "opacity-100 scale-100" To:
+  "opacity-0 scale-95" #}
   <div
     x-show="open"
-    class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
+    class="absolute inset-x-0 top-0 origin-top-right transform p-2 transition lg:hidden"
   >
     <div class="divide-y-2 divide-gray-50 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5">
       <div class="px-5 pt-5 pb-6">
@@ -87,27 +104,15 @@
         </div>
       </div>
       <div class="space-y-6 py-6 px-5">
-        <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-          <a
-            href="/"
-            class="text-base font-medium text-gray-900 hover:text-gray-700"
-            >Home</a
-          >
-          {% if collections.pages %}
-            {%
-              for item in collections.pages |
-              sort(false, false, "data.order")
-            %}
-              {% if not item.data.hidden %}
-                <a
-                  href="{{ item.url }}"
-                  class="text-base font-medium text-gray-900 hover:text-gray-700"
-                >
-                  {{- item.data['nav-title'] or item.data.title -}}
-                </a>
-              {% endif %}
-            {% endfor %}
-          {% endif %}
+        <div class="grid xx-md:grid-cols-2 gap-y-4 gap-x-8">
+          {% for nav in (collections.pages | eleventyNavigation) %}
+            <a
+              href="{{ nav.url }}"
+              class="text-base font-medium text-gray-900 hover:text-gray-700"
+            >
+              {{- nav.title -}}
+            </a>
+          {% endfor %}
         </div>
       </div>
     </div>

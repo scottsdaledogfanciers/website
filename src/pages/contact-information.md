@@ -1,6 +1,6 @@
 ---
 title: Contact Information
-nav-title: Contact Us
+navTitle: Contact Us
 order: 60
 description: Need to reach out to us? This is the place!
 headerImage: /static/media/contact-debby-hudson-dr31squbfoa-unsplash.jpg

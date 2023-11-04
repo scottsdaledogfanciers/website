@@ -32,8 +32,10 @@ function main() {
   // console.log('built index', idx);
   const previews = buildPreviews(infos, MAX_PREVIEW_CHARS);
   // console.log('built previews', previews);
+  const text = buildText(infos);
+  // console.log('built text', text);
 
-  writeIndexFile(OUTPUT_INDEX, { idx, previews });
+  writeIndexFile(OUTPUT_INDEX, { idx, previews, text });
 }
 
 /**
@@ -97,14 +99,33 @@ function excluded(excludeList, info) {
 function loadContent(info) {
   const text = fs.readFileSync(info.file).toString();
   const $ = cheerio.load(text);
+  const body = extractBodyText($);
   const content = {
     title: $('title').text() || info.url,
     description: $('meta[name=description]').attr('content') || '',
     keywords: $('meta[name=keywords]').attr('content') || '',
     // TODO: exclude header/footer?
-    body: $('#body-content').text() /* || $('body').text() */ || '',
+    body,
   };
   return { ...info, content };
+}
+
+function extractBodyText($) {
+  let els = $('#body-content *').contents().toArray();
+
+  if (els.length === 0) {
+    els = $('body *').contents().toArray();
+  }
+
+  const text = els
+    .map((el) => (el.type === 'text' ? $(el).text() : null))
+    .filter((t) => t)
+    .join(' ')
+    .replace(/[\s\u200b]+/g, ' ')
+    .trim();
+
+  // console.log('TEXT', text);
+  return text;
 }
 
 /**
@@ -136,6 +157,9 @@ function buildIndex(fields, infos) {
       // HACK: we shouldn't know that the first letter of the field is used.
       that.field(field.substring(0, 1));
     });
+
+    // include position so we can provide extracts?
+    this.metadataWhitelist = ['position'];
 
     // add the docs!
     docs.forEach((doc) => {
@@ -174,6 +198,29 @@ function buildPreviews(infos, previewLimit) {
 
   return previews;
 }
+
+/**
+ * Builds the text information.
+ * @param {*} infos List of doc infos.
+ * @returns A mapping object of text information.
+ */
+function buildText(infos) {
+  // The source I'm modelling this on builds based on the doc structure, but we
+  // just use infos as a "more-canonical" reference.
+
+  const text = {};
+
+  infos.forEach((info) => {
+    text[info.url] = {
+      // l: info.url,
+      // t: info.content.title,
+      b: info.content.body,
+    };
+  });
+
+  return text;
+}
+
 
 /**
  * Writes the index file for the client to load.
