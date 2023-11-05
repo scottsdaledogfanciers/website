@@ -5,17 +5,11 @@ description: Interested in becoming a member?
 headerImage: /static/media/sebastian-coman-travel-5tezjry1wbi-unsplash.jpg
 ---
 
-### Are you interested in becoming a member of SDFA?
+> Are you interested in becoming a member of SDFA? [Download the membership application](/static/media/sdfa_application_2019.pdf)! ​Current annual fees are $20 for an individual, and $30 for a family.
 
-### [Download the membership application](/static/media/sdfa_application_2019.pdf)!
 
-### ​Current annual fees are $20 for an individual, and $30 for a family.
+This is an excerpt from our current bylaws:
 
-----
-
-#### _This is an excerpt from our [current bylaws (TODO!)](#TODO)._
-
-----
 
 ### ARTICLE II MEMBERSHIP
 

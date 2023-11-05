@@ -1,17 +1,16 @@
-{#
 <table>
   {%- for member in board.members -%}
     <tr>
       <td>{{ member.role }}</td>
       <td>{{ member.name }}</td>
-      <td>{{ member.email }}</td>
+      {#<td>{{ member.email }}</td>#}
     </tr>
   {%- endfor -%}
 </table>
-#}
 
-{# board v2 presentation... #}
+{# board v2 presentation... need photos and bios #}
 
+{#
 <div class="flex flex-col gap-8">
   {%- for member in board.members -%}
     <div class="bg-orange-100 rounded-lg shadow-lg p-4 flex flex-row gap-4">
@@ -31,3 +30,4 @@
     </div>
   {%- endfor -%}
 </div>
+#}

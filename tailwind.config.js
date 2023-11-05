@@ -8,10 +8,23 @@ module.exports = {
     container: {
       center: true,
     },
-    // extend: {
-    //   colors: {},
-    // },
+    extend: {
+      // colors: {},
+      typography: {
+        DEFAULT: {
+          css: {
+            // don't put open/close quotes around blockquotes
+            'blockquote p:first-of-type::before': {
+              content: '',
+            },
+            'blockquote p:last-of-type::after': {
+              content: '',
+            },
+          },
+        },
+      },
+    },
   },
   // variants: {},
-  plugins: [require("@tailwindcss/typography"), require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/forms')],
 };
