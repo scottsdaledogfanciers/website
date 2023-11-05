@@ -21,9 +21,17 @@ Scottsdale Dog Fanciers Association, Inc. is a non-profit organization establish
 
 {% image "src/static/media/mcdowell-center-intro-pg1_orig.jpg" %}
 
-Meetings are held at 7:00 PM on the 3rd Tuesday of every month, except for the months of July, August, and December. We normally hold our meetings at the McDowell Mountain Ranch Community Center, 16116 N McDowell Mountain Ranch Rd., Scottsdale, 85255. Hope to see you there!
+Meetings are held at 7:00 PM on the 3rd Tuesday of every month, except for the months of July, August, and December. We normally hold our meetings at the McDowell Center, 16116 N McDowell Mountain Ranch Rd., Scottsdale, 85255. Hope to see you there!
 
-<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3321.949962619354!2d-111.85054468359495!3d33.63253938072221!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x872b9e21de7e17d9%3A0x56f0e870c08bf866!2sMcDowell%20Mountain%20Ranch%20Community%20Center!5e0!3m2!1sen!2sus!4v1666333611497!5m2!1sen!2sus" width="800" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+<iframe
+  width="100%"
+  height="450"
+  style="border:0"
+  loading="lazy"
+  allowfullscreen
+  referrerpolicy="no-referrer-when-downgrade"
+  src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDy6hhfxURhLVsXqkUdKRRkNGnzSKcasMc&q=place_id:ChIJJU7km_WfK4cRjeWCETbUZQ8">
+</iframe>
 
 ## SDFA Officers and Board of Directors
 
